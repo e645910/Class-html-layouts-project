@@ -1,0 +1,240 @@
+<!-- Put your HTML HERE, make sure to connect your style.css sheet -->
+<!DOCTYPE html>
+<head>
+		<link rel="stylesheet" href="style.css">
+		<title>Day 4 React Project</title>
+	</head>
+<html>
+	<body>
+		<div class="container">
+				<div class="header">
+				<div class="meduimUrl">M</div>
+				<div class="tutorialsUrl">
+					<p>PUBLISHED IN</p>
+					<P>REACT TUTORIALS</P>
+				</div>	
+				<div class="searchUrll"></div>
+					<div class="searchImage"></div>
+				<div class="signupUrl">
+					<div class="signupImage"></div>
+				</div>
+			</div>
+			<div class="image"></div>
+			<div class="React_Components">
+				<h2><b>React Components</b></h2>
+					<p>Components are the smallest, yet most fundamental part of React. They're similar, in concepts, to things like widgets and modules. React defines itself as a <em>library  for building user interfaces</em>. As such, when you think of a user interface you want to build (with React), you need to think of it in terms of the smallest possible components that you can define.<br>
+					</p>
+
+					<p>These components include code which defines how DOM elements are created and how users can interact with them. Components can be defined purely in JavaScript or they can be defined in a superset (or extended variation) of JavaScript called JSX. If you decide to use JSX for your component definitions, you may also need a compiler application, but we'll get to that in a minute.<br>
+					</p>
+					<div class="url">
+						<div class="leftline">
+							<em>
+							<p>We're going to be referring to <b>pure JavaScript</b> as <b>JS</b> and <b>the React version of JavaScript</b> as <b>JSX</b>.<br></p>
+							<p>You can find the accompanying source-code,  for this tutorial, at:<br>
+							<a href="https://github.com/formativ/tutorial-react-components"><b>https://github.com/formativ/tutorial-react-components.</b></a><br></p>
+							<p>Please post any errors you find, or questions you have as comments on this article or as issues on GitHub.<br></p>
+
+							<p>Thanks to <b><u>Pete Hunt</u></b> for helping to improve this!<br></p>
+							</em>
+						</div>
+				</div>
+			</div
+			<div class="embeded_html">
+				<h2><b>Embedded HTML</b></h2>
+					<p>If you've been developing websites for a while, you may have flinched when I spoke about using HTML within your JavaScript. For the longest time, a development paradigm has existed which says that you should split HTML and JavaScript. Words like <em>unobtrusive</em> have been repurposed to express this kind of separation. That is exactly how I felt, until I started working with React.<br>
+
+					The reason this paradigm exists is to decrease coupling (how much things depend on each other) and increase cohesion (how well different things work together). So we have created an environment in which we try our best to make HTML (and templates) as free of logic as possible. We then need to attach behaviour to this in the form of external scripts.<br>
+
+					There are trade-offs with this approach to doing things. For starters, it takes more effort trying to keep these two things separate. There are many template engines and languages. There are also many template parsers to handle them all. And yet these languages (with the exception of HTML) still seem to include a modicum of logical operations...<br>
+
+					Additionally, when we need to modify the contents of a web page, via JavaScript, we have to know about HTML and/or templates. How else can we know what to display and where to display it? We could load external templates, via additional HTTP requests, but how would we know where to put it without some knowledge of the DOM? We could load templates embedded within special script tags, but we would first need to fetch the contents of those script tags.<br>
+
+					This brings us to the biggest problem with the separation of HTML and JavaScript: The only way we can get elements to attach behaviour to, and read data from, is by knowing about HTML elements in the document. Libraries like jQuery are built around the idea that HTML elements are only a CSS selector away from JavaScript.<br>
+					</p>
+					<div class="url">
+						<div class="leftline">
+							<em>
+							<p>These points from from a presentation I found at:<br></p>
+							<a href="http://www.slideshare.net/floydophone/react-preso-v2"><b><em>http://www.slideshare.net/floydophone/react-preso-v2.</b></a>
+						</em>
+						</div>
+					</div>
+			<div class="Components">
+				<h2><b>Components</b></h2>
+					<p>Hopefully you're willing to try this whole embedded HTML thing. In case not, I will create JS examples along with the JSX examples in this tutorial Let's look at a simple component, just to get a feel for how one defines them:</p><br>
+					<div class="box">
+						<p>/**
+ 							* @jsx React.DOM
+ 							*/
+  
+								var HelloWorld = React.createClass({
+  								render : function() {
+    							return <div>hello world!</div>;
+ 							 }
+							});
+
+							React.renderComponent(
+  								<HelloWorld />,
+  								document.body
+							);
+						</p>
+					</div>
+				<p>The same code, in pure JavaScript looks much the same:</p>
+					<div class="box">
+						<p>var HelloWorld = React.createClass({
+  							  render : function() {
+    						  return React.DOM.div({
+      						    children : "hello world!"
+    						   });
+ 							  }
+							});
+
+							React.renderComponent(
+  								HelloWorld({}),
+ 							 document.body
+							);
+						</p>
+					</div>
+				<p>This is possible because JSX isn't run directly in the browser. It may look that way in some examples, but there's a script which converts JSX syntax into JS. For this to work, all the special JSX syntax needs to have a JS implementation. When you're developing in JSX, you're really just developing in an extended version of JavaScript.<br>
+
+				You may also notice that the comment we began with, which had <b>@jsx React.DOM</b> in it, wasn't required in the JS implementation. This is because the parser needs to see that in order for it to convert the JSX syntax to JS. Whether you are loading JSX from script elements within the same document, or loading external JSX scripts, you should always include this comment at the top of the script file.<br>
+				</p>
+				<div class="leftline">
+					<p><em>The @jsx directive will allow you to run the parser tool on all your JS and JSX scripts, affecting only the JSX scripts.</em><br>
+					</p>
+				</div>
+				<p>Ignoring the <b>React.DOM.div</b> stuff, there's not a lot to defining a component. Components will most often generate HTML for an interface. This is why we defined a <b>render</b>() method (on the JSON object we passed to the <b>React.createClass</b>() method).<br>
+				</p>
+				<div class="leftline">
+					<p><em>Don't be confused by the empty JSON object we pass to the <b>HelloWorld</b>() method.<br> This gets handled in a different way, which we'll see in later tutorials.</em>
+					</p>
+				</div>
+				<p>When we return, from within a <b>render</b>() method, we're showing React what we want to component's generated HTML to look like. There are a few different kinds of data that can be returned from within a <b>render</b>() method, but you will most often see DOM elements (or components) being returned.
+				</p>
+				<div class="url">
+					<div class="leftline">
+						<p><em>You can find more examples of this in the React download, at:</em></p>
+						<a href="http://facebook.github.io/react/downloads.html"><em><b>http://facebook.github.io/react/downloads.html</b></em></a>		
+					</div>
+				</div>
+			</div>
+		<div class="Rendering Multiple Components">	
+			<h2><b>Rendering Multiple Components</b></h2>
+			<p>Another common question is how to return multiple components from within a single <b>render</b>() method. The trick is that only one component can be returned, at a time. To return multiple, they must be wrapped within a container element. This is because of how the JS methods work. Let's look at some JSX code:
+			</p>
+				<div class="box">
+						<p>/**
+ 							* @jsx React.DOM
+ 							*/
+  
+							var HelloWorld = React.createClass({
+  							  render : function() {
+    						    return <span>hello</span><span> world!</span>;
+  							  }
+							});
+
+							React.renderComponent(
+ 							 <HelloWorld />,
+							  document.body
+							);
+						</p>
+				</div>
+			<p>This looks harmless enough. Instead of returning a single span, we want to return two. Look back to the previous JS implementation to see if you can figure out what's wrong with this.<br>
+			</p>
+			<p>If we were to try and imagine what this would look like in JS (because no compiler should allow that), it might look something like this:<br>
+			</p>
+				<div class="box">
+					<p>	var HelloWorld = React.createClass({
+ 						render : function() {
+    				     return React.DOM.span({
+      					 children : "hello"
+    					})React.DOM.span({
+      					  children : " world!"
+    					    });
+  						  }
+						});
+
+					    React.renderComponent(
+  						  HelloWorld({}),
+  						  document.body
+						);
+					</p>
+				</div>
+			<p>You see what's happening with the two calls to the <b>React.DOM.span</b>() method? Without something to wrap those elements, in a sensible manner,<br> all we can expect is an error. So how can we achieve this? We can wrap them<br> in a container element:
+			</p>
+				<div class="box">
+					<p>/**
+ 						* @jsx React.DOM
+ 						*/
+  
+						var HelloWorld = React.createClass({
+  						  render : function() {
+    					  return <div><span>hello</span><span> world!</span></div>;
+						  }
+						);
+
+							React.renderComponent(
+							  <HelloWorld />,
+ 							 document.body
+							);
+					</p>
+				</div>
+			<p>This will work, and translates into a reasonable JS equivalent:</p>
+				<div class="box">
+					<p>var HelloWorld = React.createClass({
+  						 render : function() {
+    					  return React.DOM.div({
+      					   children : [
+        					React.DOM.span({
+          					  children : "hello"
+        					}),
+        					React.DOM.span({
+        				    children : " world!"
+        					})
+     					 ]
+    					});
+ 					 	}
+					});
+
+					React.renderComponent(
+  					HelloWorld({}),
+  					document.body
+					);
+				</p>	
+				</div>
+			<p>Wrapping the span elements in a container div element equates to them<br> being passed as children in an array.
+			</p>
+				<div class="leftline">
+					<p><em>Hopefully you're beginning to see the value of JSX over the traditional JavaScript<br> approach. Considering you're still talking about div's and span's, it boils down to<br> the same thing. Only shorter.</em>
+					</p>
+				</div>
+		</div>
+		<div class="Compiling JSX">
+			<h2><b>Compiling JSX</b></h2>
+			<p>If you look at the accompanying source-code, you will see how easy it is to embed and use JSX in your web pages. If you plan on using JSX in production systems, you will no doubt consider compiling the JSX files to JS files. There's a tool you can use for this, and to install it you need to run the command:
+			</p>
+				<div class="leftline">
+					<p>jsx --watch src/ build/</p>
+				</div>
+			<p>This command will watch for file changes, in the <b>src</b>/ directory, and compile<br> the corresponding <b>.js</b> files into the <b>build</b>/ directory. There are other uses for<br> this command, but that's a subject for another time!
+			</p>
+				<div class="url">
+					<div class="leftline">
+						<em>
+						<p>You can find more information, about the tools available, at:<br>
+						<a href="http://facebook.github.io/react/docs/tooling-integration.html"><b>http://facebook.github.io/react/docs/tooling-integration.html.</b></a><br></p>
+						</em>
+					</div>
+				</div>
+		</div>
+		<div class="Conclusion">
+			<h2><b>Conclusion</b></h2>
+				<p>Components are at the heart of React, and understanding them is essential<br> to understanding how to build solid React interfaces. We've taken a brief look<br> at a few examples, but there's so much more to components. Stay<br> tuned!
+				</p>
+				<p>If you enjoyed this tutorial; it would be helpful if you could click the <b>Recommend</b> button and share it with other developers.
+				</p>
+		</div>
+	</div>
+</body>
+</html>
